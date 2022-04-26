@@ -1,5 +1,5 @@
 interface IUser {
-  id: string;
+  id?: string;
   email: string;
   username: string;
   password: string;
@@ -15,7 +15,11 @@ let users = [
   },
 ];
 
-export function createUser(user: IUser) {
+export async function findByEmail(email: string): Promise<IUser | undefined> {
+  return users.find((user) => user.email === email);
+}
+
+export async function createUser(user: IUser): Promise<string> {
   const created = { ...user, id: Date.now().toString() };
   users.push(created);
   return created.id;
