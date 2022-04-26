@@ -23,7 +23,7 @@ export async function signup(req: Request, res: Response) {
   });
   const token = createJwtToken(userId);
 
-  res.status(201).json({ token, email });
+  res.status(201).json({ token, email, username });
 }
 
 export async function login(req: Request, res: Response) {
@@ -32,6 +32,7 @@ export async function login(req: Request, res: Response) {
   if (!user) {
     return res.status(401).json({ message: 'Invalid user or passowrd' });
   }
+  const { username } = user;
 
   const isValidPassword = await bcrypt.compare(password, user.password);
   if (!isValidPassword) {
@@ -40,7 +41,7 @@ export async function login(req: Request, res: Response) {
 
   if (user.id) {
     const token = createJwtToken(user.id);
-    res.status(201).json({ token, email });
+    res.status(201).json({ token, email, username });
   }
 }
 
