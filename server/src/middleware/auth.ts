@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
+import { config } from '../config';
 import * as userRepository from '../data/auth';
 
 const AUTH_ERROR = { message: 'Authentication Error' };
@@ -17,16 +18,12 @@ export const isAuth = async (
   let isJWTValid = false;
   const token = authHeader.split(' ')[1];
 
-  jwt.verify(
-    token,
-    'wKIz4@gjoAPakH!H%PCw!v0*W&RtHdYa',
-    async (error, decoded) => {
-      if (error) {
-        return res.status(401).json(AUTH_ERROR);
-      }
-      isJWTValid = true;
+  jwt.verify(token, config.jwt.secretKey, async (error, decoded) => {
+    if (error) {
+      return res.status(401).json(AUTH_ERROR);
     }
-  );
+    isJWTValid = true;
+  });
 
   if (!isJWTValid) {
     return res.status(401).json(AUTH_ERROR);

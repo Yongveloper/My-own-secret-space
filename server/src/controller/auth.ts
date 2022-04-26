@@ -3,10 +3,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import {} from 'express-async-errors';
 import * as userRepository from '../data/auth';
-
-const jwtSecetKey = 'wKIz4@gjoAPakH!H%PCw!v0*W&RtHdYa';
-const jwtExpiresDays = '2d';
-const bcryptSaltRounds = 12;
+import { config } from '../config';
 
 export async function signup(req: Request, res: Response) {
   const { username, email, password } = req.body;
@@ -15,7 +12,7 @@ export async function signup(req: Request, res: Response) {
     return res.status(409).json({ message: `${email} already exists` });
   }
 
-  const hashedPassword = await bcrypt.hash(password, bcryptSaltRounds);
+  const hashedPassword = await bcrypt.hash(password, config.bcrypt.saltRounds);
   const userId = await userRepository.createUser({
     username,
     email,
@@ -46,7 +43,9 @@ export async function login(req: Request, res: Response) {
 }
 
 function createJwtToken(id: string) {
-  return jwt.sign({ id }, jwtSecetKey, { expiresIn: jwtExpiresDays });
+  return jwt.sign({ id }, config.jwt.secretKey, {
+    expiresIn: config.jwt.expiresInSec,
+  });
 }
 
 export async function me(req: Request, res: Response) {

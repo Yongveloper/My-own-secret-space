@@ -4,6 +4,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import diariesRouter from './router/diaries';
 import authRouter from './router/auth';
+import { config } from './config';
 
 const app = express();
 
@@ -24,6 +25,6 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   res.sendStatus(500);
 });
 
-app.listen(8080, () => {
+app.listen(config.host.port, () => {
   console.log('Server Started!!!');
 });
