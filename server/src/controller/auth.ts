@@ -47,3 +47,11 @@ export async function login(req: Request, res: Response) {
 function createJwtToken(id: string) {
   return jwt.sign({ id }, jwtSecetKey, { expiresIn: jwtExpiresDays });
 }
+
+export async function me(req: Request, res: Response) {
+  const user = await userRepository.findById(req.userId);
+  if (!user) {
+    return res.status(404).json({ message: 'User not found' });
+  }
+  res.status(200).json({ token: req.token, email: user.email });
+}
