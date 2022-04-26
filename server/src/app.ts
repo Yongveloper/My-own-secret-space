@@ -3,6 +3,7 @@ import morgan from 'morgan';
 import helmet from 'helmet';
 import cors from 'cors';
 import diariesRouter from './router/diaries';
+import authRouter from './router/auth';
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan('tiny'));
 
+app.use('/auth', authRouter);
 app.use('/diaries', diariesRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
