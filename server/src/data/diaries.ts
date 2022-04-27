@@ -1,5 +1,3 @@
-import * as userRepository from '../data/auth';
-
 interface IUpdateDiary {
   id: string;
   title: string;
