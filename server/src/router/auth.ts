@@ -19,6 +19,7 @@ const validateCredential = [
 const validateSignup = [
   ...validateCredential,
   body('username').notEmpty().withMessage('name is missing'),
+  validate,
 ];
 
 router.post('/signup', validateSignup, authController.signup);
