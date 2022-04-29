@@ -10,11 +10,11 @@ const validateDiary = [
   body('title')
     .trim()
     .isLength({ min: 1 })
-    .withMessage('title should be at least 3 characters'),
+    .withMessage('제목은 최소 3글자 이상이어야 합니다.'),
   body('text')
     .trim()
     .isLength({ min: 10 })
-    .withMessage('text should be at least 10 characters'),
+    .withMessage('내용은 최소 10글자 이상이어야 합니다.'),
   validate,
 ];
 
