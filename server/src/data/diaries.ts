@@ -29,10 +29,23 @@ let diaries: IDiary[] = [
     username: '용현준',
     createdAt: new Date(),
   },
+  {
+    id: '2',
+    title: '2예제 일기입니다.',
+    text: '예제2222',
+    mood: '좋음',
+    imageUrl: 'https://awss3.com/',
+    username: '몽실이',
+    createdAt: new Date(),
+  },
 ];
 
 export async function getAll(): Promise<IDiary[]> {
   return diaries;
+}
+
+export async function getAllByUsername(username: string) {
+  return diaries.filter((diary) => diary.username === username);
 }
 
 export async function create({
