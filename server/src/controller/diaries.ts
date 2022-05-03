@@ -8,17 +8,17 @@ export async function getDiaries(req: Request, res: Response): Promise<void> {
 
 export async function createDiary(req: Request, res: Response): Promise<void> {
   const { title, text, mood, username, imageUrl } = req.body;
-  const reqBody = { title, text, mood, username, imageUrl };
-  const diary = await diaryRepository.create(reqBody);
+  const newDiary = { title, text, mood, username, imageUrl };
+  const diary = await diaryRepository.create(newDiary);
   res.status(201).json(diary);
 }
 
 export async function updateDiary(req: Request, res: Response): Promise<void> {
   const { id } = req.params;
   const { title, text, mood, imageUrl } = req.body;
-  const reqBody = { id, title, text, mood, imageUrl };
+  const newDiary = { id, title, text, mood, imageUrl };
 
-  const diary = await diaryRepository.update(reqBody);
+  const diary = await diaryRepository.update(newDiary);
   if (diary) {
     res.status(200).json(diary);
   } else {
