@@ -19,6 +19,12 @@ export async function findByEmail(email: string): Promise<IUser | undefined> {
   return users.find((user) => user.email === email);
 }
 
+export async function findByUsername(
+  username: string
+): Promise<IUser | undefined> {
+  return users.find((user) => user.username === username);
+}
+
 export async function findById(id: string): Promise<IUser | undefined> {
   return users.find((user) => user.id === id);
 }

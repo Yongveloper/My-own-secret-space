@@ -7,9 +7,17 @@ import { config } from '../config';
 
 export async function signup(req: Request, res: Response) {
   const { username, email, password } = req.body;
-  const found = await userRepository.findByEmail(email);
-  if (found) {
-    return res.status(409).json({ message: `${email} already exists` });
+  const foundEmail = await userRepository.findByEmail(email);
+  const foundUsername = await userRepository.findByUsername(username);
+  if (foundEmail) {
+    return res
+      .status(409)
+      .json({ existence: 'email', message: `${email} already exists` });
+  }
+  if (foundUsername) {
+    return res
+      .status(409)
+      .json({ existence: 'username', message: `${username} already exists` });
   }
 
   const hashedPassword = await bcrypt.hash(password, config.bcrypt.saltRounds);
