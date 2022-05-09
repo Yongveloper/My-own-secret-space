@@ -10,27 +10,38 @@ export async function getDiaries(req: Request, res: Response): Promise<void> {
 }
 
 export async function createDiary(req: Request, res: Response): Promise<void> {
+  const { userId } = req;
   const { title, text, mood, username, imageUrl } = req.body;
-  const newDiary = { title, text, mood, username, imageUrl };
+  const newDiary = { userId, title, text, mood, username, imageUrl };
   const diary = await diaryRepository.create(newDiary);
   res.status(201).json(diary);
 }
 
-export async function updateDiary(req: Request, res: Response): Promise<void> {
+export async function updateDiary(req: Request, res: Response) {
   const { id } = req.params;
-  const { title, text, mood, imageUrl } = req.body;
-  const newDiary = { id, title, text, mood, imageUrl };
-
-  const diary = await diaryRepository.update(newDiary);
-  if (diary) {
-    res.status(200).json(diary);
-  } else {
-    res.status(404).json({ message: `Diary ${id} not found` });
+  const diary = await diaryRepository.getById(id);
+  if (!diary) {
+    return res.sendStatus(404);
   }
+  if (diary.userId !== req.userId) {
+    return res.sendStatus(403);
+  }
+
+  const { title, text, mood, imageUrl } = req.body;
+  const newDiary = { title, text, mood, imageUrl };
+  const updated = await diaryRepository.update(id, newDiary);
+  res.status(200).json(updated);
 }
 
-export async function deleteDairy(req: Request, res: Response): Promise<void> {
+export async function deleteDairy(req: Request, res: Response) {
   const { id } = req.params;
+  const diary = await diaryRepository.getById(id);
+  if (!diary) {
+    return res.sendStatus(404);
+  }
+  if (diary.userId !== req.userId) {
+    return res.sendStatus(403);
+  }
   await diaryRepository.remove(id);
   res.sendStatus(204);
 }

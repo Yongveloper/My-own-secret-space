@@ -1,5 +1,4 @@
 interface IUpdateDiary {
-  id: string;
   title: string;
   text: string;
   mood: string;
@@ -7,6 +6,7 @@ interface IUpdateDiary {
 }
 
 interface ICreateDiary {
+  userId: string;
   title: string;
   text: string;
   username: string;
@@ -15,6 +15,8 @@ interface ICreateDiary {
 }
 
 interface IDiary extends IUpdateDiary {
+  id: string;
+  userId: string;
   username: string;
   createdAt: Date;
 }
@@ -27,6 +29,7 @@ let diaries: IDiary[] = [
     mood: '좋음',
     imageUrl: 'https://awss3.com/',
     username: '용현준',
+    userId: '123123',
     createdAt: new Date(),
   },
   {
@@ -36,6 +39,7 @@ let diaries: IDiary[] = [
     mood: '좋음',
     imageUrl: 'https://awss3.com/',
     username: '몽실이',
+    userId: '123123',
     createdAt: new Date(),
   },
 ];
@@ -48,7 +52,12 @@ export async function getAllByUsername(username: string) {
   return diaries.filter((diary) => diary.username === username);
 }
 
+export async function getById(id: string) {
+  return diaries.find((diary) => diary.id === id);
+}
+
 export async function create({
+  userId,
   title,
   text,
   username,
@@ -56,6 +65,7 @@ export async function create({
   imageUrl,
 }: ICreateDiary) {
   const newDiary = {
+    userId,
     id: Date.now().toString(),
     username,
     title,
@@ -69,13 +79,10 @@ export async function create({
   return newDiary;
 }
 
-export async function update({
-  id,
-  title,
-  text,
-  mood,
-  imageUrl,
-}: IUpdateDiary) {
+export async function update(
+  id: string,
+  { title, text, mood, imageUrl }: IUpdateDiary
+) {
   const diary = diaries.find((diary) => diary.id === id);
   if (diary) {
     diary.title = title;
