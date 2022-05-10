@@ -27,8 +27,8 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
 });
 
 connectDB()
-  .then((db) => {
-    console.log('init!', db);
+  .then(() => {
+    console.log('Connect MongoDB✅✅');
     app.listen(config.host.port);
   })
   .catch(console.error);
