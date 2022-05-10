@@ -1,11 +1,7 @@
-import Home from './components/Home';
+import Router from './Router';
 
 function App() {
-  return (
-    <>
-      <Home />
-    </>
-  );
+  return <Router />;
 }
 
 export default App;
