@@ -11,9 +11,9 @@ export async function getDiaries(req: Request, res: Response): Promise<void> {
 
 export async function createDiary(req: Request, res: Response): Promise<void> {
   const { userId } = req;
-  const { title, text, mood, username, imageUrl } = req.body;
-  const newDiary = { userId, title, text, mood, username, imageUrl };
-  const diary = await diaryRepository.create(newDiary);
+  const { title, text, mood, imageUrl } = req.body;
+  const newDiary = { title, text, mood, imageUrl };
+  const diary = await diaryRepository.create(userId, newDiary);
   res.status(201).json(diary);
 }
 
