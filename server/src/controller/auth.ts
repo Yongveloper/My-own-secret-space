@@ -35,13 +35,13 @@ export async function login(req: Request, res: Response) {
   const { email, password } = req.body;
   const user = await userRepository.findByEmail(email);
   if (!user) {
-    return res.status(401).json({ message: 'Invalid user or passowrd' });
+    return res.status(401).json({ message: 'Invalid email or passowrd' });
   }
   const { username } = user;
 
   const isValidPassword = await bcrypt.compare(password, user.password);
   if (!isValidPassword) {
-    return res.status(401).json({ message: 'Invalid user or passowrd' });
+    return res.status(401).json({ message: 'Invalid email or passowrd' });
   }
 
   if (user.id) {
