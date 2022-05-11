@@ -25,7 +25,7 @@ export async function findByUsername(username: string) {
 }
 
 export async function findById(id: string) {
-  return User.findById({ id });
+  return User.findById(id);
 }
 
 export async function createUser(user: IUser) {
