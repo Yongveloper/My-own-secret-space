@@ -1,40 +1,33 @@
+import { model, Schema } from 'mongoose';
+import { useVirtualId } from '../database/database';
+
 interface IUser {
-  id: string;
   email: string;
   username: string;
   password: string;
 }
 
-// abcdef123123: $2a$12$dmbdQq8sLcQOyDeZ.ey/ieZ.vxqxmc830383p68nbUycgGrRfP24e
-let users = [
-  {
-    id: '1',
-    email: 'temp123@naver.com',
-    username: 'yongyong',
-    password: '$2a$12$dmbdQq8sLcQOyDeZ.ey/ieZ.vxqxmc830383p68nbUycgGrRfP24e',
-  },
-];
+const userSchema = new Schema({
+  email: { type: String, required: true },
+  username: { type: String, required: true },
+  password: { type: String, required: true },
+});
 
-export async function findByEmail(email: string): Promise<IUser | undefined> {
-  return users.find((user) => user.email === email);
+useVirtualId(userSchema);
+const User = model<IUser>('User', userSchema);
+
+export async function findByEmail(email: string) {
+  return User.findOne({ email });
 }
 
-export async function findByUsername(
-  username: string
-): Promise<IUser | undefined> {
-  return users.find((user) => user.username === username);
+export async function findByUsername(username: string) {
+  return User.findOne({ username });
 }
 
-export async function findById(id: string): Promise<IUser | undefined> {
-  return users.find((user) => user.id === id);
+export async function findById(id: string) {
+  return User.findById(id);
 }
 
-export async function createUser(user: {
-  email: string;
-  username: string;
-  password: string;
-}): Promise<string> {
-  const created = { ...user, id: Date.now().toString() };
-  users.push(created);
-  return created.id;
+export async function createUser(user: IUser) {
+  return new User(user).save().then((data) => data.id);
 }

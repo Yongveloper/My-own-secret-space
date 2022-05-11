@@ -5,6 +5,7 @@ import cors from 'cors';
 import diariesRouter from './router/diaries';
 import authRouter from './router/auth';
 import { config } from './config';
+import { connectDB } from './database/database';
 
 const app = express();
 
@@ -25,6 +26,9 @@ app.use((error: any, req: Request, res: Response, next: NextFunction) => {
   res.sendStatus(500);
 });
 
-app.listen(config.host.port, () => {
-  console.log('Server Started!!!');
-});
+connectDB()
+  .then(() => {
+    console.log('Connect MongoDB✅✅');
+    app.listen(config.host.port);
+  })
+  .catch(console.error);
