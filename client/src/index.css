@@ -1,13 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url('images/space.jpg');
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  font-family: 'Noto Sans KR', sans-serif;
+  user-select: none;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.content-wrap {
+  @apply max-w-sm flex flex-col items-center justify-center w-full h-screen px-8;
+}
+
+.button {
+  @apply w-full flex items-center justify-center py-2 px-12 mb-3 rounded;
+}
+
+.login-input {
+  @apply w-full px-2 py-1 border-solid border-2 rounded text-neutral-900 mb-4;
 }
