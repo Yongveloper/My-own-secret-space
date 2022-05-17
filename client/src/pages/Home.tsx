@@ -17,7 +17,9 @@ function Home() {
         <Link to="/login">
           <LoginBtn />
         </Link>
-        <SignupBtn />
+        <Link to="/signup">
+          <SignupBtn />
+        </Link>
       </div>
     </main>
   );

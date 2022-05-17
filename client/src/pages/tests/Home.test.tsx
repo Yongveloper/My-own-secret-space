@@ -33,4 +33,18 @@ describe('<Home />', () => {
     fireEvent.click(loginTitle);
     expect(history.location.pathname).toBe('/login');
   });
+
+  it('click the Signup button to go to the Signup path', () => {
+    const history = createMemoryHistory({ initialEntries: ['/'] });
+    render(
+      <Router location={history.location} navigator={history}>
+        <Home />
+      </Router>
+    );
+    const signupTitle = screen.getByText('가입하기');
+
+    expect(history.location.pathname).toBe('/');
+    fireEvent.click(signupTitle);
+    expect(history.location.pathname).toBe('/signup');
+  });
 });
