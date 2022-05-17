@@ -1,4 +1,5 @@
 import { RiGitRepositoryPrivateFill } from 'react-icons/ri';
+import { Link } from 'react-router-dom';
 import LoginBtn from '../components/common/Buttons/LoginBtn';
 import SignupBtn from '../components/common/Buttons/SignupBtn';
 
@@ -12,9 +13,13 @@ function Home() {
         </h1>
         <h2 className="text-xl">나의 하루를 기억하고 기록 해보세요</h2>
       </div>
-      <div className="mt-10">
-        <LoginBtn />
-        <SignupBtn />
+      <div className="w-full mt-10">
+        <Link to="/login">
+          <LoginBtn />
+        </Link>
+        <Link to="/signup">
+          <SignupBtn />
+        </Link>
       </div>
     </main>
   );
