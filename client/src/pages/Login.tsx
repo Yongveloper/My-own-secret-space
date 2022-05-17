@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import GoogleBtn from '../components/common/Buttons/GoogleBtn';
 import KakaoBtn from '../components/common/Buttons/KakaoBtn';
+import LoginSignupText from '../components/common/LoginSignupText';
 import LoginForm from '../components/Login/LoginForm';
 
 function Login() {
@@ -8,15 +9,7 @@ function Login() {
     <div className="content-wrap">
       <h1 className="text-4xl font-bold mb-8">로그인</h1>
       <LoginForm />
-      <div className="flex flex-col justify-center items-center m-3">
-        <span className="mb-2 text-gray-600">
-          아직 계정이 없으신가요?{' '}
-          <Link to="/signup" className="underline">
-            계정 만들기
-          </Link>
-        </span>
-        <span>또는</span>
-      </div>
+      <LoginSignupText />
       <KakaoBtn />
       <GoogleBtn />
     </div>
