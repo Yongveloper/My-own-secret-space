@@ -16,17 +16,20 @@ function MyDiaryItem({
   });
 
   return (
-    <div className=" bg-white h-2/4 mb-3 p-3">
-      <div className="text-lg text-gray-900">{title}</div>
+    <li className="flex flex-col justify-center bg-white h-2/4 mb-3 p-3 border-2 border-slate-400">
+      <h1 className="font-bold text-xl text-gray-900">{title}</h1>
       <span role="img">{mood}</span>
-      <div className="text-sm text-gray-500">{dateString}</div>
+      <div className="text-sm text-gray-500" data-testid="Date">
+        {dateString}
+      </div>
       <div className="text-gray-700 text-left">{text}</div>
       <img
-        className="object-cover h-28 w-full mt-3"
+        className="object-cover h-32 w-full mt-3"
         src={imageUrl}
         alt="thumbnail"
-      ></img>
-    </div>
+        data-testid="Thumbnail"
+      />
+    </li>
   );
 }
 
