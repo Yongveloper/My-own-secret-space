@@ -17,20 +17,22 @@ interface IMyDiaryListProps {
 
 function MyDiaryList({ diaries }: IMyDiaryListProps) {
   return (
-    <main className="w-full mt-3 mb-3">
-      {diaries.map((item) => (
-        <MyDiaryItem
-          key={item.id}
-          id={item.id}
-          title={item.title}
-          text={item.text}
-          mood={item.mood}
-          username={item.username}
-          userId={item.userId}
-          imageUrl={item.imageUrl}
-          createAt={item.createAt}
-        />
-      ))}
+    <main className="w-full h-5/6 mt-3 mb-3">
+      <ul className="w-full h-full overflow-auto" data-testid="DiaryList">
+        {diaries.map((item) => (
+          <MyDiaryItem
+            key={item.id}
+            id={item.id}
+            title={item.title}
+            text={item.text}
+            mood={item.mood}
+            username={item.username}
+            userId={item.userId}
+            imageUrl={item.imageUrl}
+            createAt={item.createAt}
+          />
+        ))}
+      </ul>
     </main>
   );
 }
