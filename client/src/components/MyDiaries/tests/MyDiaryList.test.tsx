@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
+import { MemoryRouter } from 'react-router-dom';
 import MyDiaryList from '../MyDiaryList';
 
 describe('<MyDiaryList />', () => {
@@ -30,12 +29,7 @@ describe('<MyDiaryList />', () => {
   ];
 
   it('renders todos properly', () => {
-    const history = createMemoryHistory({ initialEntries: ['/mydiaries/:id'] });
-    render(
-      <Router location={history.location} navigator={history}>
-        <MyDiaryList diaries={sampleDiaries} />
-      </Router>
-    );
+    render(<MyDiaryList diaries={sampleDiaries} />, { wrapper: MemoryRouter });
     const text1 = screen.getByText(sampleDiaries[0].text);
     const text2 = screen.getByText(sampleDiaries[1].text);
 

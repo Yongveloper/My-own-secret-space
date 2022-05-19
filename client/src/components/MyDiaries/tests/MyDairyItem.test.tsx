@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import { Router } from 'react-router-dom';
-import { createMemoryHistory } from 'history';
+import { MemoryRouter } from 'react-router-dom';
 import MyDiaryItem from '../MyDiaryItem';
 
 describe('<MyDiaryItem />', () => {
@@ -17,12 +16,7 @@ describe('<MyDiaryItem />', () => {
   };
 
   it('has title, text,mood and image', () => {
-    const history = createMemoryHistory({ initialEntries: ['/mydiaries/:id'] });
-    render(
-      <Router location={history.location} navigator={history}>
-        <MyDiaryItem {...sampleDiary} />
-      </Router>
-    );
+    render(<MyDiaryItem {...sampleDiary} />, { wrapper: MemoryRouter });
     const title = screen.getByRole('heading', { level: 1 });
     const text = screen.getByText('오늘은 의미있는 하루였다. 그런데');
     const date = screen.getByTestId('Date');

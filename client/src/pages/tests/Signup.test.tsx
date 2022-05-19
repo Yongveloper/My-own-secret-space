@@ -4,7 +4,7 @@ import { createMemoryHistory } from 'history';
 
 import Signup from '../Signup';
 
-describe('<Login />', () => {
+describe('<Signup />', () => {
   describe('default field must be rendered', () => {
     it('has title, inputs, link tag, two span and three buttons.', () => {
       const history = createMemoryHistory({ initialEntries: ['/signup'] });
