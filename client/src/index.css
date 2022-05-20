@@ -7,7 +7,6 @@ body {
     url('images/space.jpg');
   background-size: cover;
   height: 100vh;
-  width: 100vw;
   display: flex;
   justify-content: center;
   color: #fff;
@@ -16,7 +15,7 @@ body {
 }
 
 .content-wrap {
-  @apply max-w-sm flex flex-col items-center justify-center w-full h-screen px-8;
+  @apply max-w-sm flex flex-col items-center justify-center w-screen h-screen px-8;
 }
 
 .button {
