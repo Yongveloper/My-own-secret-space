@@ -1,16 +1,11 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { Router } from 'react-router-dom';
+import { MemoryRouter, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import Home from '../Home';
 
 describe('<Home />', () => {
   it('has two head tags and two buttons.', () => {
-    const history = createMemoryHistory({ initialEntries: ['/'] });
-    render(
-      <Router location={history.location} navigator={history}>
-        <Home />
-      </Router>
-    );
+    render(<Home />, { wrapper: MemoryRouter });
     const title = screen.getByRole('heading', { level: 1 });
     const subTitle = screen.getByRole('heading', { level: 2 });
     const buttons = screen.getAllByRole('button');

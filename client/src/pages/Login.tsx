@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import GoogleBtn from '../components/common/Buttons/GoogleBtn';
 import KakaoBtn from '../components/common/Buttons/KakaoBtn';
 import LoginSignupText from '../components/common/LoginSignupText';
