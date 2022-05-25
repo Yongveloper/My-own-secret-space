@@ -18,7 +18,7 @@ interface IMyDiaryListProps {
 function MyDiaryList({ diaries }: IMyDiaryListProps) {
   return (
     <main className="w-full h-5/6 mt-3 mb-3">
-      <ul className="w-full h-full overflow-auto" data-testid="DiaryList">
+      <ul className="w-full h-full overflow-auto px-3" data-testid="DiaryList">
         {diaries.map((item) => (
           <MyDiaryItem
             key={item.id}
