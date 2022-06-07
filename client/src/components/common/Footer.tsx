@@ -15,7 +15,7 @@ function NavBar() {
           <span>나의 일기</span>
         </Link>
         <Link
-          to="/mydiaries"
+          to="/mydiaries/writediary"
           className="flex flex-col items-center justify-center grow border-solid border-x-2 border-slate-400"
         >
           <BsPencilSquare />

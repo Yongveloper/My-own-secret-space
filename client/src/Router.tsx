@@ -5,6 +5,7 @@ import Signup from './pages/Signup';
 import MyDiaries from './pages/MyDiaries';
 import DiaryDetail from './pages/DiaryDetail';
 import Footer from './components/common/Footer';
+import WriteDiary from './pages/WriteDiary';
 
 function Router() {
   return (
@@ -16,6 +17,7 @@ function Router() {
         <Route path="/mydiaries" element={<Footer />}>
           <Route index element={<MyDiaries />} />
           <Route path=":id" element={<DiaryDetail />} />
+          <Route path="writediary" element={<WriteDiary />} />
         </Route>
       </Routes>
     </BrowserRouter>
