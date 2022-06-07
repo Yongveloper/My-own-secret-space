@@ -6,7 +6,7 @@ function NavBar() {
   return (
     <>
       <Outlet />
-      <div className="w-full max-w-sm flex fixed bottom-0 border-solid border-t-2 border-slate-400">
+      <div className="w-full max-w-sm flex fixed bottom-0 border-solid border-t-2 border-x-2 border-slate-400">
         <Link
           to="/mydiaries"
           className="flex flex-col items-center justify-center grow"
