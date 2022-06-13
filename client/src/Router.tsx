@@ -18,6 +18,7 @@ function Router() {
           <Route index element={<MyDiaries />} />
           <Route path=":id" element={<DiaryDetail />} />
           <Route path="writediary" element={<WriteDiary />} />
+          <Route path="updatediary/:id" element={<WriteDiary />} />
         </Route>
       </Routes>
     </BrowserRouter>

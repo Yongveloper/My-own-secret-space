@@ -1,4 +1,5 @@
 import { BsFillPencilFill, BsFillTrashFill } from 'react-icons/bs';
+import { Link } from 'react-router-dom';
 
 function DiaryDetail() {
   return (
@@ -11,9 +12,11 @@ function DiaryDetail() {
       </h3>
       <h1 className="text-4xl font-bold text-center">의미 있는 날</h1>
       <div className="w-full flex justify-end mt-3 mb-3">
-        <button className="flex items-center mr-3 text-gray-400">
-          <BsFillPencilFill /> 수정
-        </button>
+        <Link to={`/mydiaries/updatediary/${1}`}>
+          <button className="flex items-center mr-3 text-gray-400">
+            <BsFillPencilFill /> 수정
+          </button>
+        </Link>
         <button className="flex items-center text-red-400">
           <BsFillTrashFill /> 삭제
         </button>
