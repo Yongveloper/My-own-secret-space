@@ -4,6 +4,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import MyDiaries from './pages/MyDiaries';
 import DiaryDetail from './pages/DiaryDetail';
+import Footer from './components/common/Footer';
+import WriteDiary from './pages/WriteDiary';
 
 function Router() {
   return (
@@ -12,8 +14,11 @@ function Router() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/mydiaries" element={<MyDiaries />} />
-        <Route path="/mydiaries/:id" element={<DiaryDetail />} />
+        <Route path="/mydiaries" element={<Footer />}>
+          <Route index element={<MyDiaries />} />
+          <Route path=":id" element={<DiaryDetail />} />
+          <Route path="writediary" element={<WriteDiary />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
