@@ -1,8 +1,10 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
+import axios from 'axios';
 import SignupBtn from '../common/Buttons/SignupBtn';
+import { useNavigate } from 'react-router-dom';
 
 type Inputs = {
-  name: string;
+  username: string;
   email: string;
   password: string;
   checkPassword: string;
@@ -12,13 +14,33 @@ function SignupForm() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
+  const navigator = useNavigate();
+
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    const { username, email, password, checkPassword } = data;
+
+    if (password !== checkPassword) {
+      return alert('비밀번호가 서로 다릅니다.');
+    }
+
+    axios
+      .post('http://localhost:8080/auth/signup', {
+        username,
+        email,
+        password,
+      })
+      .then((data) => {
+        console.log(data);
+        navigator('/mydiaries');
+      });
+  };
+
+  const PW_MESSAGE = '패스워드는 최소 8글자 이상 20자 이하로 입력해주세요.';
   const registerOptions = {
-    name: {
+    username: {
       required: '공백 없이 이름을 입력해주세요.',
       pattern: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|]+$/,
     },
@@ -27,22 +49,22 @@ function SignupForm() {
       required: '패스워드를 입력해주세요.',
       minLength: {
         value: 8,
-        message: '패스워드는 최소 8글자 이상 20자 이하로 입력해주세요.',
+        message: PW_MESSAGE,
       },
       maxLength: {
         value: 20,
-        message: '패스워드는 최소 8글자 이상 20자 이하로 입력해주세요.',
+        message: PW_MESSAGE,
       },
     },
     checkPassword: {
       required: '패스워드를 입력해주세요.',
       minLength: {
         value: 8,
-        message: '패스워드는 최소 8글자 이상 20자 이하로 입력해주세요.',
+        message: PW_MESSAGE,
       },
       maxLength: {
         value: 20,
-        message: '패스워드는 최소 8글자 이상 20자 이하로 입력해주세요.',
+        message: PW_MESSAGE,
       },
     },
   };
@@ -53,9 +75,9 @@ function SignupForm() {
         type="text"
         placeholder="이름"
         className="login-input"
-        {...register('name', registerOptions.name)}
+        {...register('username', registerOptions.username)}
       />
-      {<span>{errors?.name && errors.name.message}</span>}
+      {<span>{errors?.username && errors.username.message}</span>}
       <input
         type="email"
         placeholder="이메일"
@@ -63,7 +85,6 @@ function SignupForm() {
         {...register('email', registerOptions.email)}
       />
       {<span>{errors?.email && errors.email.message}</span>}
-
       <input
         type="password"
         placeholder="비밀번호"
