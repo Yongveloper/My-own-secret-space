@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import axios from 'axios';
-import SignupBtn from '../common/Buttons/SignupBtn';
 import { useNavigate } from 'react-router-dom';
+import SignupBtn from '../common/Buttons/SignupBtn';
 
 type Inputs = {
   username: string;
@@ -35,7 +35,8 @@ function SignupForm() {
       .then((data) => {
         console.log(data);
         navigator('/mydiaries');
-      });
+      })
+      .catch((error) => alert(error.response.data.message));
   };
 
   const PW_MESSAGE = '패스워드는 최소 8글자 이상 20자 이하로 입력해주세요.';
