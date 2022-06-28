@@ -1,35 +1,30 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import LoginBtn from '../common/Buttons/LoginBtn';
-
-type Inputs = {
-  email: string;
-  password: string;
-};
+import { postLogin, ILoginData } from '../../api/auth';
 
 function LoginForm() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<ILoginData>();
 
   const navigator = useNavigate();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    const { email, password } = data;
+  const handleLogin = async (info: ILoginData) => {
+    try {
+      const data = await postLogin(info);
+      console.log(data);
+      navigator('/mydiaries');
+    } catch (error: any) {
+      alert(error.response.data.message);
+    }
+  };
 
-    axios
-      .post('http://localhost:8080/auth/login', {
-        email,
-        password,
-      })
-      .then((data) => {
-        console.log(data);
-        navigator('/mydiaries');
-      })
-      .catch((error) => alert(error.response.data.message));
+  const onSubmit: SubmitHandler<ILoginData> = (data) => {
+    const { email, password } = data;
+    handleLogin({ email, password });
   };
   const PW_MESSAGE = '패스워드는 최소 8글자 이상 20자 이하로 입력해주세요.';
 
