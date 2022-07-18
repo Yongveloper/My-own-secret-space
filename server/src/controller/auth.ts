@@ -35,13 +35,17 @@ export async function login(req: Request, res: Response) {
   const { email, password } = req.body;
   const user = await userRepository.findByEmail(email);
   if (!user) {
-    return res.status(401).json({ message: 'Invalid email or passowrd' });
+    return res
+      .status(401)
+      .json({ message: '이메일 또는 비밀번호가 잘못 되었습니다.' });
   }
   const { username } = user;
 
   const isValidPassword = await bcrypt.compare(password, user.password);
   if (!isValidPassword) {
-    return res.status(401).json({ message: 'Invalid email or passowrd' });
+    return res
+      .status(401)
+      .json({ message: '이메일 또는 비밀번호가 잘못 되었습니다.' });
   }
 
   if (user.id) {
