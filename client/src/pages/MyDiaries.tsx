@@ -3,6 +3,8 @@ import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import MyDiaryList from '../components/MyDiaries/MyDiaryList';
+import { useRecoilValue } from 'recoil';
+import { userState } from '../atoms';
 
 const tempDiary = [
   {
@@ -52,6 +54,8 @@ const tempDiary = [
 
 function MyDiaries() {
   const [startDate, setStartDate] = useState(new Date());
+  const user = useRecoilValue(userState);
+  console.log(user);
   return (
     <div className="content-wrap text-center">
       <DatePicker

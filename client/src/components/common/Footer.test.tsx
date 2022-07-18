@@ -14,7 +14,7 @@ describe('<Footer />', () => {
 
     const myDiaryLink = screen.getByText('나의 일기');
     const writeDiaryLink = screen.getByText('일기 쓰기');
-    const infoLink = screen.getByText('내 정보');
+    const infoLink = screen.getByText('로그아웃');
 
     expect(myDiaryLink).toBeInTheDocument();
     expect(writeDiaryLink).toBeInTheDocument();
