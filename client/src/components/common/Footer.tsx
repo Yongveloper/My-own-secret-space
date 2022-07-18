@@ -1,8 +1,19 @@
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link, useNavigate } from 'react-router-dom';
 import { GiNotebook } from 'react-icons/gi';
 import { BsPencilSquare, BsFilePerson } from 'react-icons/bs';
+import { userState } from '../../atoms';
+import { useSetRecoilState } from 'recoil';
 
 function NavBar() {
+  const navigator = useNavigate();
+  const setUser = useSetRecoilState(userState);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setUser({ username: '', email: '' });
+    navigator('/');
+  };
+
   return (
     <>
       <Outlet />
@@ -21,13 +32,13 @@ function NavBar() {
           <BsPencilSquare />
           <span>일기 쓰기</span>
         </Link>
-        <Link
-          to="/mydiaries"
-          className="flex flex-col items-center justify-center grow"
+        <div
+          className="flex flex-col items-center justify-center grow cursor-pointer"
+          onClick={handleLogout}
         >
           <BsFilePerson />
-          <span>내 정보</span>
-        </Link>
+          <span>로그아웃</span>
+        </div>
       </div>
     </>
   );
