@@ -2,8 +2,11 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import LoginBtn from '../common/Buttons/LoginBtn';
 import { postLogin, ILoginData } from '../../api/auth';
+import { userState } from '../../atoms';
+import { useSetRecoilState } from 'recoil';
 
 function LoginForm() {
+  const setUser = useSetRecoilState(userState);
   const {
     register,
     handleSubmit,
@@ -14,8 +17,9 @@ function LoginForm() {
 
   const handleLogin = async (info: ILoginData) => {
     try {
-      const data = await postLogin(info);
-      console.log(data);
+      const { token, username, email } = await postLogin(info);
+      setUser({ username, email });
+      localStorage.setItem('token', token);
       navigator('/mydiaries');
     } catch (error: any) {
       alert(error.response.data.message);

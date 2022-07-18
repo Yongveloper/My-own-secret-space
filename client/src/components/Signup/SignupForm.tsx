@@ -23,6 +23,7 @@ function SignupForm() {
     try {
       const data = await postSignup(info);
       console.log(data);
+      localStorage.setItem('token', data.token);
       navigator('/mydiaries');
     } catch (error: any) {
       alert(error.response.data.message);
