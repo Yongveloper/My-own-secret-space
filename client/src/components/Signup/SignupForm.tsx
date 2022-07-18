@@ -2,6 +2,8 @@ import { useForm, SubmitHandler } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import SignupBtn from '../common/Buttons/SignupBtn';
 import { ISignupData, postSignup } from '../../api/auth';
+import { userState } from '../../atoms';
+import { useSetRecoilState } from 'recoil';
 
 type Inputs = {
   username: string;
@@ -11,6 +13,7 @@ type Inputs = {
 };
 
 function SignupForm() {
+  const setUser = useSetRecoilState(userState);
   const {
     register,
     handleSubmit,
@@ -21,9 +24,9 @@ function SignupForm() {
 
   const handleSignup = async (info: ISignupData) => {
     try {
-      const data = await postSignup(info);
-      console.log(data);
-      localStorage.setItem('token', data.token);
+      const { token, username, email } = await postSignup(info);
+      setUser({ username, email });
+      localStorage.setItem('token', token);
       navigator('/mydiaries');
     } catch (error: any) {
       alert(error.response.data.message);
