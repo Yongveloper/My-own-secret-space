@@ -3,7 +3,7 @@ import { BsFillPencilFill, BsFillTrashFill } from 'react-icons/bs';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { deleteDiary, getDiaryDetail } from '../api/diaries';
 
-interface IDiaryData {
+export interface IDiaryData {
   createdAt: string;
   id: string;
   imageUrl: string;
@@ -43,11 +43,11 @@ function DiaryDetail() {
   };
 
   if (isLoading) {
-    <div>일기를 불러오는 중입니다...</div>;
+    return <div>일기를 불러오는 중입니다...</div>;
   }
 
   if (error) {
-    <div>일기를 불러올 수 없습니다...</div>;
+    return <div>일기를 불러올 수 없습니다...</div>;
   }
 
   return (
@@ -60,7 +60,7 @@ function DiaryDetail() {
       </h3>
       <h1 className="text-4xl font-bold text-center">{diary?.title}</h1>
       <div className="w-full flex justify-end mt-3 mb-3">
-        <Link to={`/mydiaries/updatediary/${1}`}>
+        <Link to={`/mydiaries/updatediary/${id}`}>
           <button className="flex items-center mr-3 text-gray-400">
             <BsFillPencilFill /> 수정
           </button>

@@ -35,6 +35,16 @@ export async function postCreateDiary(diary: IDiaryData) {
   });
 }
 
+export async function putUpdateDiary(id: string, diary: IDiaryData) {
+  const newDairy = {
+    ...diary,
+    imageUrl: '',
+  }; // todo fix to ImageUrl and File
+  await api.put(`diaries/${id}`, newDairy, {
+    headers: getHeaders(),
+  });
+}
+
 export async function deleteDiary(id: string) {
   await api.delete(`diaries/${id}`, {
     headers: getHeaders(),
