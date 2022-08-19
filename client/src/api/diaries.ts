@@ -35,6 +35,12 @@ export async function postCreateDiary(diary: IDiaryData) {
   });
 }
 
+export async function deleteDiary(id: string) {
+  await api.delete(`diaries/${id}`, {
+    headers: getHeaders(),
+  });
+}
+
 function getHeaders() {
   const token = localStorage.getItem('token');
   return {

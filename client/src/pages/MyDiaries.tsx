@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
+import { useQuery } from 'react-query';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/locale';
 import 'react-datepicker/dist/react-datepicker.css';
 import MyDiaryList from '../components/MyDiaries/MyDiaryList';
 import { userState } from '../atoms';
 import { getDairies } from '../api/diaries';
-import { useQuery } from 'react-query';
 
 function MyDiaries() {
   const user = useRecoilValue(userState);

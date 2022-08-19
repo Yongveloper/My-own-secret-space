@@ -1,34 +1,74 @@
-import { useEffect } from 'react';
+import { useQuery } from 'react-query';
 import { BsFillPencilFill, BsFillTrashFill } from 'react-icons/bs';
-import { Link, useParams } from 'react-router-dom';
-import { getDiaryDetail } from '../api/diaries';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { deleteDiary, getDiaryDetail } from '../api/diaries';
+
+interface IDiaryData {
+  createdAt: string;
+  id: string;
+  imageUrl: string;
+  mood: string;
+  text: string;
+  title: string;
+  updatedAt: string;
+  userId: string;
+  username: string;
+  _id: string;
+}
 
 function DiaryDetail() {
   const { id } = useParams();
+  const navigator = useNavigate();
+  const {
+    isLoading,
+    error,
+    data: diary,
+  } = useQuery<IDiaryData>(['diary', id], () => getDiaryDetail(id as string));
+  let dateString = '';
 
-  useEffect(() => {
-    (async () => {
-      const diary = await getDiaryDetail(id as string);
-      console.log(diary);
-    })();
-  }, [id]);
+  if (diary) {
+    dateString = new Date(diary.createdAt).toLocaleString('ko-KR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  }
+
+  const handleDelete = async () => {
+    const ok = window.confirm('일기를 삭제 하시겠습니까?');
+    if (ok) {
+      await deleteDiary(id as string);
+      navigator('/mydiaries');
+    }
+  };
+
+  if (isLoading) {
+    <div>일기를 불러오는 중입니다...</div>;
+  }
+
+  if (error) {
+    <div>일기를 불러올 수 없습니다...</div>;
+  }
 
   return (
     <div className="max-w-sm flex flex-col items-center justify-center w-screen h-auto px-8 py-8">
       <span role="img" data-testid="Mood">
-        😀
+        {diary?.mood}
       </span>
       <h3 className="text-base text-gray-500" data-testid="Date">
-        2022년 10월 22일
+        {dateString}
       </h3>
-      <h1 className="text-4xl font-bold text-center">의미 있는 날</h1>
+      <h1 className="text-4xl font-bold text-center">{diary?.title}</h1>
       <div className="w-full flex justify-end mt-3 mb-3">
         <Link to={`/mydiaries/updatediary/${1}`}>
           <button className="flex items-center mr-3 text-gray-400">
             <BsFillPencilFill /> 수정
           </button>
         </Link>
-        <button className="flex items-center text-red-400">
+        <button
+          className="flex items-center text-red-400"
+          onClick={handleDelete}
+        >
           <BsFillTrashFill /> 삭제
         </button>
       </div>
@@ -38,8 +78,7 @@ function DiaryDetail() {
         data-testid="Thumbnail"
       />
       <div className="mt-3" data-testid="Text">
-        오늘은 의미있는 날이었다 그런데오늘은 의미있는 날이었다 그런데오늘은
-        의미있는 날이었다 그런데
+        {diary?.text}
       </div>
     </div>
   );
