@@ -77,7 +77,7 @@ function DiaryDetail() {
         alt="thumbnail"
         data-testid="Thumbnail"
       />
-      <div className="mt-3" data-testid="Text">
+      <div className="pt-3 pb-3 break-all" data-testid="Text">
         {diary?.text}
       </div>
     </div>

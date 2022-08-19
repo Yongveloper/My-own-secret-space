@@ -24,10 +24,13 @@ function MyDiaryItem({
         <div className="text-sm text-gray-500" data-testid="Date">
           {dateString}
         </div>
-        <div className="text-gray-700 text-left">{text}</div>
+        <div className="text-gray-700 text-left line-clamp-2">{text}</div>
         <img
           className="object-cover h-32 w-full mt-3"
-          src={imageUrl}
+          src={
+            imageUrl ||
+            'https://images.unsplash.com/photo-1652703747774-558a10faacc2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80'
+          }
           alt="thumbnail"
           data-testid="Thumbnail"
         />
