@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRecoilValue } from 'recoil';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/locale';

@@ -1,6 +1,24 @@
+import { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { IDiaryData, postCreateDiary } from '../api/diaries';
+
 function WriteDiary() {
+  const navigator = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IDiaryData>();
+
+  const onSubmit: SubmitHandler<IDiaryData> = async (diary) => {
+    await postCreateDiary(diary);
+    navigator('/mydiaries');
+  };
+
   return (
-    <div className="content-wrap">
+    <form onSubmit={handleSubmit(onSubmit)} className="content-wrap">
       <label className="mb-2">오늘의 기분</label>
       <select
         className="form-select appearance-none
@@ -19,12 +37,13 @@ function WriteDiary() {
       m-0
       focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
         aria-label="Default select example"
+        {...register('mood')}
       >
         😀
-        <option value="sad">😢</option>
-        <option value="angry">😡</option>
-        <option value="funny">🤣</option>
-        <option value="amazing">😱</option>
+        <option value="😢">😢</option>
+        <option value="😡">😡</option>
+        <option value="🤣">🤣</option>
+        <option value="😱">😱</option>
       </select>
 
       <div className="flex justify-center items-center w-full my-3">
@@ -51,7 +70,12 @@ function WriteDiary() {
               PNG, JPG or GIF (MAX. 800x400px)
             </p>
           </div>
-          <input id="dropzone-file" type="file" className="hidden" />
+          <input
+            id="dropzone-file"
+            type="file"
+            className="hidden"
+            {...register('imageUrl')}
+          />
         </label>
       </div>
 
@@ -80,6 +104,7 @@ function WriteDiary() {
       "
               id="exampleFormControlInput1"
               placeholder="제목을 입력해주세요."
+              {...register('title', { required: '제목을 입력해주세요.' })}
             />
           </div>
         </div>
@@ -110,14 +135,21 @@ function WriteDiary() {
               id="exampleFormControlTextarea1"
               rows={3}
               placeholder="내용을 입력해주세요."
-            ></textarea>
+              {...register('text', {
+                required: '내용을 입력해주세요.',
+                minLength: {
+                  value: 10,
+                  message: '내용은 최소 10 글자 이상입니다.',
+                },
+              })}
+            />
           </div>
         </div>
       </div>
       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 rounded-full mt-3">
         작성 완료
       </button>
-    </div>
+    </form>
   );
 }
 
