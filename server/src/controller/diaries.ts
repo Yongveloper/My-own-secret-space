@@ -9,6 +9,15 @@ export async function getDiaries(req: Request, res: Response): Promise<void> {
   res.status(200).json(data);
 }
 
+export async function getDiaryDetail(req: Request, res: Response) {
+  const { id } = req.params;
+  const diary = await diaryRepository.getById(id);
+  if (!diary) {
+    return res.sendStatus(404);
+  }
+  return res.status(200).json(diary);
+}
+
 export async function createDiary(req: Request, res: Response): Promise<void> {
   const { userId } = req;
   const { title, text, mood, imageUrl } = req.body;

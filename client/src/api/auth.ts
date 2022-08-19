@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8080/',
+  baseURL: 'http://localhost:8080/auth/',
 });
 
 interface IUser {
@@ -22,11 +22,11 @@ export interface ISignupData {
 }
 
 export async function postLogin(info: ILoginData): Promise<IUser> {
-  const { data } = await api.post(`auth/login`, info);
+  const { data } = await api.post(`login`, info);
   return data;
 }
 
 export async function postSignup(info: ISignupData): Promise<IUser> {
-  const { data } = await api.post(`auth/signup`, info);
+  const { data } = await api.post(`signup`, info);
   return data;
 }

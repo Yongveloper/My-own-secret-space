@@ -7,6 +7,7 @@ import MyDiaries from './pages/MyDiaries';
 import DiaryDetail from './pages/DiaryDetail';
 import Footer from './components/common/Footer';
 import WriteDiary from './pages/WriteDiary';
+import UpdateDiary from './pages/UpdateDiary';
 
 function Router() {
   const AuthHomePage = Auth(Home, false);
@@ -24,7 +25,7 @@ function Router() {
           <Route index element={<MyDiaries />} />
           <Route path=":id" element={<DiaryDetail />} />
           <Route path="writediary" element={<WriteDiary />} />
-          <Route path="updatediary/:id" element={<WriteDiary />} />
+          <Route path="updatediary/:id" element={<UpdateDiary />} />
         </Route>
       </Routes>
     </BrowserRouter>

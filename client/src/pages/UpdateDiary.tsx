@@ -1,16 +1,28 @@
+import { useEffect } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useNavigate } from 'react-router-dom';
-import { IDiaryData, postCreateDiary } from '../api/diaries';
+import { useQuery } from 'react-query';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getDiaryDetail, IDiaryData, putUpdateDiary } from '../api/diaries';
 
-function WriteDiary() {
+function UpdateDiary() {
+  const { id } = useParams();
   const navigator = useNavigate();
+  const {
+    isLoading,
+    error,
+    data: diary,
+  } = useQuery<IDiaryData>(['diary', id], () => getDiaryDetail(id as string));
 
-  const { register, handleSubmit } = useForm<IDiaryData>();
+  const { reset, register, handleSubmit } = useForm<IDiaryData>();
 
   const onSubmit: SubmitHandler<IDiaryData> = async (diary) => {
-    await postCreateDiary(diary);
+    await putUpdateDiary(id as string, diary);
     navigator('/mydiaries');
   };
+
+  useEffect(() => {
+    reset({ ...diary });
+  }, [diary, reset]);
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="content-wrap">
@@ -148,4 +160,4 @@ function WriteDiary() {
   );
 }
 
-export default WriteDiary;
+export default UpdateDiary;
