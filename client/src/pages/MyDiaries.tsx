@@ -6,18 +6,24 @@ import 'react-datepicker/dist/react-datepicker.css';
 import MyDiaryList from '../components/MyDiaries/MyDiaryList';
 import { userState } from '../atoms';
 import { getDairies } from '../api/diaries';
+import { useQuery } from 'react-query';
 
 function MyDiaries() {
   const user = useRecoilValue(userState);
   const [startDate, setStartDate] = useState(new Date());
-  const [diairies, setDiairies] = useState([]);
+  const {
+    isLoading,
+    error,
+    data: diaries,
+  } = useQuery('myDiaries', () => getDairies(user.username));
 
-  useEffect(() => {
-    (async () => {
-      const data = await getDairies(user.username);
-      setDiairies(data);
-    })();
-  }, [user]);
+  if (isLoading) {
+    return <div>일기를 불러오는 중입니다...</div>;
+  }
+
+  if (error) {
+    return <div>일기를 불러올 수 없습니다.</div>;
+  }
 
   return (
     <div className="content-wrap text-center">
@@ -30,7 +36,7 @@ function MyDiaries() {
         maxDate={new Date()}
         onChange={(date: Date) => setStartDate(date)}
       />
-      <MyDiaryList diaries={diairies} />
+      <MyDiaryList diaries={diaries} />
     </div>
   );
 }

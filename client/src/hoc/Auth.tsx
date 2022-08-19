@@ -14,7 +14,6 @@ export default function AuthHOC(SpecialComponent: any, option: boolean) {
     const user = useRecoilValue(userState);
 
     useEffect(() => {
-      console.log(user.email, option);
       if (user.email && !option) {
         navigator('/mydiaries');
       }

@@ -11,6 +11,13 @@ export async function getDairies(username: string) {
   return data;
 }
 
+export async function getDiaryDetail(id: string) {
+  const { data } = await api.get(`diaries/${id}`, {
+    headers: getHeaders(),
+  });
+  return data;
+}
+
 function getHeaders() {
   const token = localStorage.getItem('token');
   return {

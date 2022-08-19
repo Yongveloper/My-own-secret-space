@@ -1,7 +1,18 @@
+import { useEffect } from 'react';
 import { BsFillPencilFill, BsFillTrashFill } from 'react-icons/bs';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
+import { getDiaryDetail } from '../api/diaries';
 
 function DiaryDetail() {
+  const { id } = useParams();
+
+  useEffect(() => {
+    (async () => {
+      const diary = await getDiaryDetail(id as string);
+      console.log(diary);
+    })();
+  }, [id]);
+
   return (
     <div className="max-w-sm flex flex-col items-center justify-center w-screen h-auto px-8 py-8">
       <span role="img" data-testid="Mood">
