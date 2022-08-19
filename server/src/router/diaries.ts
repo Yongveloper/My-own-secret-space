@@ -20,6 +20,8 @@ const validateDiary = [
 
 router.get('/', isAuth, diaryController.getDiaries);
 
+router.get('/:id', isAuth, diaryController.getDiaryDetail);
+
 router.post('/', isAuth, validateDiary, diaryController.createDiary);
 
 router.put('/:id', isAuth, validateDiary, diaryController.updateDiary);

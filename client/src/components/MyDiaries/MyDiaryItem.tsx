@@ -8,9 +8,9 @@ function MyDiaryItem({
   mood,
   username,
   imageUrl,
-  createAt,
+  createdAt,
 }: IMyDiaryItemProps) {
-  const dateString = createAt.toLocaleString('ko-KR', {
+  const dateString = new Date(createdAt).toLocaleString('ko-KR', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
