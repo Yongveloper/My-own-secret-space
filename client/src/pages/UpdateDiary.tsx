@@ -17,7 +17,7 @@ function UpdateDiary() {
 
   const onSubmit: SubmitHandler<IDiaryData> = async (diary) => {
     await putUpdateDiary(id as string, diary);
-    navigator('/mydiaries');
+    navigator(`/mydiaries/${id}`);
   };
 
   useEffect(() => {
