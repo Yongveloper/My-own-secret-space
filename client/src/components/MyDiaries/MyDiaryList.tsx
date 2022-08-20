@@ -1,24 +1,14 @@
+import { IMyDiaryItem } from '../../pages/MyDiaries';
 import MyDiaryItem from './MyDiaryItem';
 
-export interface IMyDiaryItemProps {
-  id: string;
-  title: string;
-  text: string;
-  mood: string;
-  username: string;
-  userId: string;
-  imageUrl: string;
-  createdAt: Date;
+export interface IMyDiaryList {
+  diaries: IMyDiaryItem[] | undefined;
 }
 
-interface IMyDiaryListProps {
-  diaries: IMyDiaryItemProps[] | [];
-}
-
-function MyDiaryList({ diaries }: IMyDiaryListProps) {
+function MyDiaryList({ diaries }: IMyDiaryList) {
   return (
     <main className="w-full h-5/6 mt-3 mb-3">
-      {diaries.length === 0 ? (
+      {diaries === undefined || diaries.length === 0 ? (
         <div>작성된 일기가 없습니다.</div>
       ) : (
         <ul

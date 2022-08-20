@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { IMyDiaryItemProps } from './MyDiaryList';
+import { IMyDiaryItem } from '../../pages/MyDiaries';
 
 function MyDiaryItem({
   id,
@@ -9,7 +9,7 @@ function MyDiaryItem({
   username,
   imageUrl,
   createdAt,
-}: IMyDiaryItemProps) {
+}: IMyDiaryItem) {
   const dateString = new Date(createdAt).toLocaleString('ko-KR', {
     year: 'numeric',
     month: 'long',
